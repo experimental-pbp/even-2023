@@ -13,5 +13,5 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('modify/<int:id>', modify_transaction, name='modify_transaction'),
-    path('delete/<int:pk>', delete_transaction, name='delete_transaction'),
+    path('delete/<int:id>', delete_transaction, name='delete_transaction'),
 ]
