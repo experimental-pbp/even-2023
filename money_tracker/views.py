@@ -80,7 +80,7 @@ def logout_user(request):
 
 def modify_transaction(request, id):  
     # get the object
-    transaction = TransactionRecord.objects.filter(pk=id).first()
+    transaction = TransactionRecord.objects.get(pk = id)
 
     form = TransactionRecordForm(request.POST or None, instance=transaction)
 
