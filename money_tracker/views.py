@@ -2,7 +2,7 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from money_tracker.forms import TransactionRecordForm
 from money_tracker.models import TransactionRecord
@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
 
 def show_tracker(request):
     transaction_data = TransactionRecord.objects.all()
@@ -98,3 +99,25 @@ def delete_transaction(request, id):
     transaction.delete()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('money_tracker:show_tracker'))
+
+@csrf_exempt
+def create_transaction_ajax(request):  
+    # create object of form
+    form = TransactionRecordForm(request.POST or None)
+    
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        data = TransactionRecord.objects.last()
+
+        result = {
+            'id':data.id,
+            'name':data.name,
+            'type':data.type,
+            'amount':data.amount,
+            'date':data.date,
+            'description':data.description,
+        }
+        return JsonResponse(result)
+    
+    context = {'form': form}
+    return render(request, "create_transaction.html", context)
