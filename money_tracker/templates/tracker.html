@@ -16,6 +16,10 @@
                             <p class="card-text">${data[i].fields.type}</p>
                             <p class="card-text">${data[i].fields.amount}</p>
                             <p class="card-text">${data[i].fields.description}</p>
+                            <div class="mt-auto">
+                                <a href="/tracker/delete/${data[i].pk}" class="btn btn-primary delete mb-2">Hapus</a>
+                                <a href="/tracker/modify/${data[i].pk}" class="btn btn-secondary mb-2">Ubah</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -31,6 +35,7 @@
                 description: $("#description").val()
             },
             function(result, status){
+                console.log(result)
                 if (status == 'success'){
                     $("#tracker").append(`
                     <div id="${result.id}--task" class="col-md-6 col-lg-3 mb-3">
@@ -41,6 +46,10 @@
                                 <p class="card-text">${result.type}</p>
                                 <p class="card-text">${result.amount}</p>
                                 <p class="card-text">${result.description}</p>
+                                <div class="mt-auto">
+                                    <a href="/tracker/delete/${result.id}" class="btn btn-primary delete mb-2">Hapus</a>
+                                    <a href="/tracker/modify/${result.id}" class="btn btn-secondary mb-2">Ubah</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -59,7 +68,7 @@
     <h5>Nama: </h5>
     <p>{{name}}</p>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-        Add Transaction
+        Tambah Transaksi
     </button>
       
       <!-- Modal -->

@@ -109,6 +109,7 @@ def create_transaction_ajax(request):
         form.save()
         data = TransactionRecord.objects.last()
 
+    
         result = {
             'id':data.id,
             'name':data.name,
