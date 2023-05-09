@@ -15,4 +15,5 @@ urlpatterns = [
     path('modify/<int:id>', modify_transaction, name='modify_transaction'),
     path('delete/<int:id>', delete_transaction, name='delete_transaction'),
     path('create-ajax/', create_transaction_ajax, name='create_transaction_ajax'),
+    path('create-flutter/', create_transaction_flutter, name='create_transaction_flutter'),
 ]
